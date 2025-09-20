@@ -1,8 +1,7 @@
 # Reverse Utility - Operating Systems Lab
 
-Made by:
-Estiven Ospina González
-María Daniela Rodríguez Chacón
+**Made by:**
+Estiven Ospina González and María Daniela Rodríguez Chacón
 
 This laboratory practice focuses on the development of a reverse utility program in C as part of the Operating Systems course. The main objective is to strengthen programming skills in file handling, dynamic memory management, and error control, while also exploring key system concepts such as:
 
@@ -10,7 +9,7 @@ This laboratory practice focuses on the development of a reverse utility program
 - Environment variables for configurable error prefixes (`error` or `reverse`).
 - Linked lists for dynamic data structures.
 - Input/Output redirection between standard streams and external files.
-- 
+  
 The program reads the contents of an input file and writes them in reverse order to an output file. If no input is specified, it reads from `stdin`, and if no output is given, it writes to `stdout`.
 
 Through this practice, we gain hands-on experience with:
@@ -19,9 +18,8 @@ Through this practice, we gain hands-on experience with:
 2. Using inodes via stat to detect when input and output files are the same.
 3. Managing command-line arguments for different execution cases.
 4. Automating testing with shell scripts (`test-reverse.sh`).
-5. 
+   
 This work not only develops technical coding abilities but also emphasizes the importance of reliability, robustness, and clarity in system-level programming.
-
 
 ## How to compile
 
