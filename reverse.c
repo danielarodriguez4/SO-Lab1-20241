@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
+
+#define ERR_PREFIX "reverse"  // cambiar a error
 
 // Estructura para almacenar las líneas en una lista enlazada
 typedef struct LineNode {
@@ -11,13 +14,13 @@ typedef struct LineNode {
 LineNode* createNode(char *line) {
     LineNode *newNode = malloc(sizeof(LineNode));
     if (newNode == NULL) {
-        fprintf(stderr, "malloc failed\n");
+        fprintf(stderr, "%s: malloc failed\n", ERR_PREFIX);
         exit(1);
     }
         
     newNode->line = malloc(strlen(line) + 1);
     if (newNode->line == NULL) {
-        fprintf(stderr, "malloc failed\n");
+        fprintf(stderr, "%s: malloc failed\n", ERR_PREFIX);
         exit(1);
     }
     
@@ -52,9 +55,16 @@ void printList(LineNode *head, FILE *output) {
     }
 }
 
+#include <sys/stat.h>
+
 int sameFile(char *file1, char *file2) {
-    return strcmp(file1, file2) == 0;
+    struct stat s1, s2;
+    if (stat(file1, &s1) != 0 || stat(file2, &s2) != 0) {
+        return 0; // si no se pueden stat, asumimos que no son iguales
+    }
+    return (s1.st_ino == s2.st_ino) && (s1.st_dev == s2.st_dev);
 }
+
 
 int main(int argc, char *argv[]) {
     FILE *input = stdin;
@@ -74,21 +84,21 @@ int main(int argc, char *argv[]) {
     if (argc == 3) {
         // Verificar que los archivos de entrada y salida sean diferentes
         if (sameFile(argv[1], argv[2])) {
-            fprintf(stderr, "El archivo de entrada y salida deben diferir\n");
+            fprintf(stderr, "%s: input and output file must differ\n", ERR_PREFIX);
             exit(1);
         }
 
         // Abrir archivo de entrada
         input = fopen(argv[1], "r");
         if (input == NULL) {
-            fprintf(stderr, "error: cannot open file '%s'\n", argv[1]);
+            fprintf(stderr, "%s: cannot open file '%s'\n", ERR_PREFIX, argv[1]);
             exit(1);
         }
 
         // Abrir archivo de salida
         output = fopen(argv[2], "w");
         if (output == NULL) {
-            fprintf(stderr, "error: cannot open file '%s'\n", argv[2]);
+            fprintf(stderr, "%s: cannot open file '%s'\n", ERR_PREFIX, argv[2]);
             fclose(input);
             exit(1);
         }
@@ -98,7 +108,7 @@ int main(int argc, char *argv[]) {
         // Abrir archivo de entrada
         input = fopen(argv[1], "r");
         if (input == NULL) {
-            fprintf(stderr, "error: cannot open file '%s'\n", argv[1]);
+            fprintf(stderr, "%s: cannot open file '%s'\n", ERR_PREFIX, argv[1]);
             exit(1);
         }
     }
