@@ -7,10 +7,10 @@ The program reads the contents of an input file and writes them in reverse order
 
 ## How to compile
 
-Use `gcc` to compile the program:
-
-`gcc -Wall -o reverse reverse.c`
-
+Use `clang` to compile the program:
+```c 
+clang -Wall -Wextra -std=c11 -o reverse reverse.c
+```
 This generates an executable named `reverse`.
 
 ## How to run
@@ -18,14 +18,17 @@ This generates an executable named `reverse`.
 The program accepts the following formats:
 
 ## Case 1: input and output
-`./reverse input.txt output.txt`
-
+```c 
+./reverse input.txt output.txt
+```
 ## Case 2: only input, output goes to stdout
-`./reverse input.txt`
-
+```c 
+./reverse input.txt
+```
 ## Case 3: no args, reads stdin and writes to stdout          
-`./reverse`                     
-
+```c 
+./reverse                    
+```
 - input.txt: file to read from
 - output.txt: file where the reversed content will be written
 
@@ -35,9 +38,9 @@ NOTE: if the input and output files are the same, the program will print an erro
 ## Running tests
 
 All tests are included in the tests/ folder. Run the test script:
-
-`./test-reverse.sh`
-
+```c 
+./test-reverse.sh
+```
 You will see an output like the one below:
 
 ```c 
@@ -77,7 +80,7 @@ Make sure you have the following files in your working directory:
 - `tests/` (folder with input, expected `.err` and `.rc` files)
 
 ### 2. Compile the program
-Use GCC to compile the C source:
+Use clang to compile the C source:
 ```c
 clang -Wall -Wextra -std=c11 -o reverse reverse.c
 ```
